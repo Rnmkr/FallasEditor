@@ -159,7 +159,7 @@ namespace FallasEditor
                 Falla selectedfalla = (Falla)ListBoxFalla.SelectedItem;
                 foreach (Falla f in ListBoxCategoria.SelectedItems)
                 {
-                    Falla newfalla = new Falla { CategoriaFalla = f.CategoriaFalla, DescripcionCategoria = f.DescripcionCategoria, CodigoFalla = selectedfalla.CodigoFalla, DescripcionFalla = selectedfalla.DescripcionFalla };
+                    Falla newfalla = new Falla { CategoriaFalla = f.CategoriaFalla.TrimEnd(), DescripcionCategoria = f.DescripcionCategoria.TrimEnd(), CodigoFalla = selectedfalla.CodigoFalla.TrimEnd(), DescripcionFalla = selectedfalla.DescripcionFalla.TrimEnd() };
 
                     if (!context.Falla.Where(x => x.CategoriaFalla == newfalla.CategoriaFalla && x.CodigoFalla == newfalla.CodigoFalla).Any())
                     {
