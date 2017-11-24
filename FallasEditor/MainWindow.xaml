@@ -1,0 +1,21 @@
+﻿<Window x:Class="FallasEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FallasEditor"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="480" Width="720" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <ListBox Name="ListBoxCategoria" Margin="10,10,0,0" ItemContainerStyle="{StaticResource Selectable}" ItemsSource="{Binding}" ItemsPanel="{DynamicResource ListBoxItemTemplate}" ItemTemplate="{StaticResource CategoriaListBoxDataTemplate}" SelectionMode="Multiple" Height="350" VerticalAlignment="Top" HorizontalAlignment="Left" Width="260"/>
+        <ListBox Name="ListBoxFalla" Height="350" VerticalAlignment="Top" Margin="279,10,10,0" ItemContainerStyle="{StaticResource Selectable}" ItemsSource="{Binding}" ItemsPanel="{DynamicResource ListBoxItemTemplate}" ItemTemplate="{StaticResource FallaListBoxDataTemplate}" SelectionMode="Single" SelectionChanged="ListBoxFalla_SelectionChanged"/>
+        <TextBox Name="TextBoxCategoriaFalla" MaxLines="1" MaxLength="5" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Margin="10,390,0,0" FontFamily="Consolas" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="11"/>
+        <TextBox Name="TextBoxDescripcionCategoria" MaxLines="1" MaxLength="30" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Margin="65,390,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Consolas" FontWeight="Bold" FontSize="11"/>
+        <Button Name="ButtonAgregarCategoria" Content="AGREGAR CATEGORIA A LA LISTA" HorizontalAlignment="Left" VerticalAlignment="Top" Width="260" Margin="10,365,0,0" FontWeight="Bold" FontFamily="Consolas" Click="ButtonAgregarCategoria_Click"/>
+        <Button Name="ButtonConsultarCategoria" Content="CONSULTA" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="10,418,0,0" FontFamily="Consolas" FontWeight="Bold" Click="ButtonConsultarCategoria_Click" FontSize="10"/>
+        <TextBox Name="TextBoxCodigoFalla" MaxLines="1" MaxLength="5" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Margin="279,390,385,0" FontFamily="Consolas" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" PreviewTextInput="TextBoxCodigoFalla_PreviewTextInput" FontSize="11"/>
+        <TextBox Name="TextBoxDescripcionFalla" MaxLines="1" MaxLength="50" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,390,10,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Consolas" FontWeight="Bold" FontSize="11" HorizontalAlignment="Right" Width="370"/>
+        <Button Name="ButtonIngresar" Content="INGRESAR" VerticalAlignment="Top" Margin="624,418,10,0" FontFamily="Consolas" FontWeight="Bold" Click="ButtonIngresar_Click"/>
+        <Button Name="ButtonAgregarFalla" Content="AGREGAR FALLA A LA LISTA" VerticalAlignment="Top" Margin="279,365,10,0" FontFamily="Consolas" FontWeight="Bold" Height="18" Click="ButtonAgregarFalla_Click"/>
+    </Grid>
+</Window>
