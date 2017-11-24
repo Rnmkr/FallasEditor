@@ -73,7 +73,7 @@ namespace FallasEditor
             }
             catch (Exception)
             {
-                MessageBox.Show("Error seleccionando items", "FallasEditor", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("Error seleccionando items" + Environment.NewLine + ex.ToString(), "FallasEditor", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -171,9 +171,9 @@ namespace FallasEditor
                 MessageBox.Show("Datos Ingresados!", "FallasEditor", MessageBoxButton.OK, MessageBoxImage.Asterisk);
                 LoadItems();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Uh! Algo anduvo mal ingresando los datos.... :(", "FallasEditor", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.ToString(), "FallasEditor", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
