@@ -2,10 +2,12 @@
 using FallasEditor.DataAccessLayer;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System;
+using System.Net.NetworkInformation;
+using System.Windows.Input;
+using readconfig;
 
 namespace FallasEditor
 {
@@ -21,7 +23,7 @@ namespace FallasEditor
         public MainWindow()
         {
             InitializeComponent();
-            LoadItems();
+            //LoadItems();
         }
 
         private void LoadItems()
@@ -181,6 +183,57 @@ namespace FallasEditor
         {
             var textBox = sender as TextBox;
             e.Handled = Regex.IsMatch(e.Text, "[^0-9]+");
+        }
+
+        private void ButtonLoad_Click(object sender, RoutedEventArgs e)
+        {
+            using (new WaitCursor())
+            {
+                if (SimplePing() == false)
+                {
+                    MessageBox.Show("No se encontró el servidor." + Environment.NewLine + "Revise la conexión con la Base de Datos y reintente.", "Conectando al servidor", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                LoadItems();
+            }
+        }
+
+        public class WaitCursor : IDisposable
+        {
+            private Cursor _previousCursor;
+
+            public WaitCursor()
+            {
+                _previousCursor = Mouse.OverrideCursor;
+
+                Mouse.OverrideCursor = Cursors.Wait;
+            }
+
+            #region IDisposable Members
+
+            public void Dispose()
+            {
+                Mouse.OverrideCursor = _previousCursor;
+            }
+
+            #endregion
+        }
+
+        public static bool SimplePing()
+        {
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["PRDB"].ConnectionString.ToString();
+            string ServerIP = connectionString.Between("data source=", ";initial");
+            Ping pingSender = new Ping();
+            PingReply reply = pingSender.Send(ServerIP);
+
+            if (reply.Status == IPStatus.Success)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
