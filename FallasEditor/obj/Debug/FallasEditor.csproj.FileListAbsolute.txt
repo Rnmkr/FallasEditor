@@ -1,4 +1,3 @@
-D:\VSprojects\FallasEditor\FallasEditor\bin\Debug\FallasEditor.exe.config
 D:\VSprojects\FallasEditor\FallasEditor\bin\Debug\FallasEditor.exe
 D:\VSprojects\FallasEditor\FallasEditor\bin\Debug\FallasEditor.pdb
 D:\VSprojects\FallasEditor\FallasEditor\obj\Debug\FallasEditor.csprojResolveAssemblyReference.cache
@@ -19,3 +18,4 @@ D:\VSprojects\FallasEditor\FallasEditor\bin\Debug\EntityFramework.SqlServer.xml
 D:\VSprojects\FallasEditor\FallasEditor\obj\Debug\App.baml
 D:\VSprojects\FallasEditor\FallasEditor\obj\Debug\Consulta.g.cs
 D:\VSprojects\FallasEditor\FallasEditor\obj\Debug\Consulta.baml
+D:\VSprojects\FallasEditor\FallasEditor\bin\Debug\FallasEditor.exe.config

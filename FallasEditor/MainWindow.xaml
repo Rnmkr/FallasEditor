@@ -17,6 +17,6 @@
         <TextBox x:Name="TextBoxDescripcionCategoria" MaxLines="1" MaxLength="30" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,390,11,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Consolas" FontWeight="Bold" FontSize="11" HorizontalAlignment="Right" Width="205"/>
         <Button x:Name="ButtonAgregarCategoria" Content="AGREGAR CATEGORIA A LA LISTA" VerticalAlignment="Top" Margin="0,365,11,0" FontWeight="Bold" FontFamily="Consolas" Click="ButtonAgregarCategoria_Click" HorizontalAlignment="Right" Width="260"/>
         <Button x:Name="ButtonConsultarCategoria" Content="CONSULTA" VerticalAlignment="Top" Margin="0,418,221,0" FontFamily="Consolas" FontWeight="Bold" Click="ButtonConsultarCategoria_Click" FontSize="10" HorizontalAlignment="Right" Width="50" Height="18"/>
-        <Button Name="ButtonLoad" Content="RECARGAR FALLAS" Margin="0,418,96,0" FontFamily="Consolas" FontWeight="Bold" Click="ButtonLoad_Click" Height="18" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120"/>
+        <Button Name="ButtonLoad" Content="(RE)CARGAR FALLAS" Margin="12,418,0,0" FontFamily="Consolas" FontWeight="Bold" Click="ButtonLoad_Click" Height="18" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120"/>
     </Grid>
 </Window>

@@ -8,6 +8,7 @@ using System;
 using System.Net.NetworkInformation;
 using System.Windows.Input;
 using readconfig;
+using System.Net;
 
 namespace FallasEditor
 {
@@ -33,10 +34,11 @@ namespace FallasEditor
                 ListaCategorias.Clear();
                 ListaFallas.Clear();
                 PRDB context = new PRDB();
+
                 Lista = new ObservableCollection<Falla>(context.Falla.Select(s => s));
                 context.Dispose();
 
-                var LC = from c in Lista orderby c.CategoriaFalla group c by c.CategoriaFalla into uniqueCats select uniqueCats.FirstOrDefault() ;
+                var LC = from c in Lista orderby c.CategoriaFalla group c by c.CategoriaFalla into uniqueCats select uniqueCats.FirstOrDefault();
                 var LF = from c in Lista orderby c.CodigoFalla group c by c.CodigoFalla into uniqueCods select uniqueCods.FirstOrDefault();
 
                 foreach (var v in LC)
@@ -112,14 +114,24 @@ namespace FallasEditor
 
         private void ButtonConsultarCategoria_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(TextBoxCategoriaFalla.Text))
+            using (new WaitCursor())
             {
-                MessageBox.Show("Debe ingresar una CATEGORIA para consultar!", "Consultar Categoria", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                if (string.IsNullOrWhiteSpace(TextBoxCategoriaFalla.Text))
+                {
+                    MessageBox.Show("Debe ingresar una CATEGORIA para consultar!", "Consultar Categoria", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+
+                if (SimplePing() == false)
+                {
+                    MessageBox.Show("No se encontró el servidor." + Environment.NewLine + "Revise la conexión con la Base de Datos y reintente.", "Conectando al servidor", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                string keyword = TextBoxCategoriaFalla.Text;
+                Consulta consulta = new Consulta(keyword);
+                consulta.ShowDialog();
             }
-            string keyword = TextBoxCategoriaFalla.Text;
-            Consulta consulta = new Consulta(keyword);
-            consulta.ShowDialog();
         }
 
         private void ButtonAgregarFalla_Click(object sender, RoutedEventArgs e)
@@ -221,20 +233,41 @@ namespace FallasEditor
 
         public static bool SimplePing()
         {
-            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["PRDB"].ConnectionString.ToString();
-            string ServerIP = connectionString.Between("data source=", ";initial");
-            Ping pingSender = new Ping();
-            PingReply reply = pingSender.Send(ServerIP);
+            //    string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["PRDB"].ConnectionString.ToString();
+            //    string ServerIP = connectionString.Between("data source=", ";initial");
+            //    Ping pingSender = new Ping();
+            //    PingReply reply = pingSender.Send(ServerIP);
 
-            if (reply.Status == IPStatus.Success)
+            //    if (reply.Status == IPStatus.Success)
+            //    {
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        return false;
+            //    }
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["PRDB"].ConnectionString.ToString();
+            string HostName = connectionString.Between("data source=", ";initial");
+            try
             {
-                return true;
+                IPAddress[] ip = Dns.GetHostAddresses(HostName);
+                Ping pingSender = new Ping();
+                PingReply reply = pingSender.Send(ip[0]);
+                if (reply.Status == IPStatus.Success)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception)
             {
                 return false;
             }
         }
+
     }
 }
 
